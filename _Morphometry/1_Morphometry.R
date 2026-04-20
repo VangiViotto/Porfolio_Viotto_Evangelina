@@ -7,13 +7,11 @@ library(ggplot2)
 library(MASS)
 library(viridis)
 
-# ==============================
-# 1. Load and clean data
-# ==============================
+# ==============================/
+# 1. Load and clean data----
+# ==============================/
 
-datos <- read.csv("simulated_metadata.CSV")
-
-
+datos <- read.csv("data/simulated_metadata.CSV")
 
 datos <- datos %>%
   mutate(
@@ -29,24 +27,24 @@ datos_SD <- datos %>%
 
 IDs_SD <- datos_SD$Num_imagen
 
-# ==============================
-# 2. Load landmarks
-# ==============================
+# ==============================/
+# 2. Load landmarks----
+# ==============================/
 
-coords_raw <-readland.tps("simulated_landmarks.TPS",
+coords_raw <-readland.tps("data/simulated_landmarks.TPS",
                    specID = "ID",
                    readcurves = FALSE)# readland.tps("data/SD.tps", specID = "ID")
 
-# ==============================
-# 3. Generalized Procrustes Analysis
-# ==============================
+# ==============================/
+# 3. Generalized Procrustes Analysis----
+# ==============================/
 
 # Align shapes (remove size, rotation, translation)
 gpa <- gpagen(coords_raw)
 
-# ==============================
-# 4. Average replicates
-# ==============================
+# ==============================/
+# 4. Average replicates----
+# ==============================/
 
 # Replicate IDs (3 digitizations per individual)
 ID_rep <- rep(IDs_SD, 3)
@@ -58,9 +56,9 @@ coords_mean <- simplify2array(lapply(coords_mean, mshape))
 # Extract centroid size
 CS <- gpa$Csize[1:length(IDs_SD)]
 
-# ==============================
-# 5. PCA
-# ==============================
+# ==============================/
+# 5. PCA----
+# ==============================/
 
 # PCA on mean shapes
 pca <- gm.prcomp(coords_mean)
@@ -74,9 +72,9 @@ scores$ID <- datos_SD$Num_imagen
 # Variance explained by PCs
 var_exp <- round(pca$d / sum(pca$d) * 100, 2)
 
-# ==============================
-# 6. Statistical models
-# ==============================
+# ==============================/
+# 6. Statistical models----
+# ==============================/
 
 # Shape differences by sex
 modelo_sexo <- procD.lm(coords_mean ~ Sexo,
@@ -97,9 +95,9 @@ modelo_allometry <- procD.lm(coords_mean ~ log(CS),
                              data = datos_SD,
                              iter = 999)
 
-# ==============================
-# 7. PCA visualization
-# ==============================
+# ==============================/
+# 7. PCA visualization----
+# ==============================/
 
 pca_plot <- ggplot(scores, aes(Comp1, Comp2, fill = Nest)) +
   geom_point(shape = 21, size = 3, color = "black") +
@@ -117,9 +115,9 @@ pca_plot <- ggplot(scores, aes(Comp1, Comp2, fill = Nest)) +
 
 print(pca_plot)
 
-# ==============================
-# 8. CVA (shape differentiation)
-# ==============================
+# ==============================/
+# 8. CVA (shape differentiation)----
+# ==============================/
 
 # Use first PCs to reduce noise
 pcs <- grep("^Comp", names(scores), value = TRUE)
@@ -161,9 +159,9 @@ cva_plot_sex <- ggplot(scores_cva, aes(LD1, LD2, fill = Sex)) +
   theme_classic()
 
 print(cva_plot_sex)
-# ==============================
-# 9. Save outputs (optional)
-# ==============================
+# ==============================/
+# 9. Save outputs (optional)----
+# ==============================/
 
 # ggsave("outputs/pca_plot.png", pca_plot, width = 8, height = 6)
 # ggsave("outputs/cva_plot.png", cva_plot, width = 8, height = 6)
