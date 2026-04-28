@@ -30,22 +30,24 @@ This project applies stochastic simulations and matrix population models to iden
 
 ---
 
-## Project structure
-
+## Project structure 
+```
 2_population_dinamics/
 ├── data/
-│ ├── raw/
-│ └── processed/
+│   ├── raw/
+│   └── processed/
 ├── outputs/
-│ ├── figures/
-│ └── tables/
+│   ├── figures/
+│   └── tables/
 ├── scripts/
-│ ├── 2_1_build_parameters.R
-│ └── 2_2_simulation_analisis.R
+│   ├── 2_1_build_parameters.R
+│   └── 2_2_simulation_analisis.R
 ├── mean_matrix.csv
 ├── survival_parameters.csv
 ├── model_parameters.RData
 └── README.md
+```
+
 ---
 
 ## Outputs
