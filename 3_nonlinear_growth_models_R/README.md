@@ -1,7 +1,7 @@
 # Growth Modeling & Cohort Detection in *Caiman latirostris*
 
 **Author:** Evangelina Viotto  
-**Year:** 2026  
+**Year:** 2020  
 
 ## Objective
 
