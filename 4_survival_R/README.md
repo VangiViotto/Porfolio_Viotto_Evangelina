@@ -33,6 +33,12 @@ The dataset contains:
 - Proportional hazards assumption tested using Schoenfeld residuals  
 
 ---
+## Key insights 
+
+- Which group survives more?
+- Which variables increase risk?
+- What does this mean in simple terms?
+---
 
 ##  Results
 - Survival probability varies between years  
@@ -78,6 +84,7 @@ survival_analysis/
 This project demonstrates the application of survival analysis to real-world biological data, including data cleaning, statistical modeling, and result visualization.
 
 The workflow is fully reproducible and follows best practices for data analysis projects.
+
 
 ##Publication
 
